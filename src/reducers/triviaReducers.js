@@ -6,7 +6,10 @@ const {
   FETCH_TRIVIA_FAIL,
 } = triviaConstants;
 
-export const fetchTriviaReducer = (state = {}, { type, payload }) => {
+export const fetchTriviaReducer = (
+  state = { triviaList: [] },
+  { type, payload }
+) => {
   switch (type) {
     case FETCH_TRIVIA_REQUEST:
       return {

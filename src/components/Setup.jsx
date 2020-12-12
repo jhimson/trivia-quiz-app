@@ -1,11 +1,21 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { fetchTrivia } from '../actions/triviaActions';
 
 const Setup = () => {
+  const history = useHistory();
+  const dispatch = useDispatch();
   const [numQuestions, setNumQuestions] = useState(10);
   const [category, setCategory] = useState('');
-  const [difficult, setDifficulty] = useState('');
+  const [difficulty, setDifficulty] = useState('');
   const [type, setType] = useState('');
+
+  const submitTriviaOptions = () => {
+    dispatch(fetchTrivia({ numQuestions, category, difficulty, type }));
+    history.push('/exam');
+  };
 
   return (
     <div className="flex items-center justify-center w-screen min-h-screen text-center">
@@ -63,7 +73,7 @@ const Setup = () => {
                 <option value={23}>History</option>
                 <option value={24}>Politics</option>
                 <option value={25}>Art</option>
-                <option value={26}>Celebreties</option>
+                <option value={26}>Celebrities</option>
                 <option value={27}>Animals</option>
                 <option value={28}>Vehicles</option>
                 <option value={29}>Entertainment: Comics</option>
@@ -82,7 +92,7 @@ const Setup = () => {
                 name=""
                 id=""
                 className="p-2 mt-2 bg-gray-200 rounded-lg w-72"
-                value={difficult}
+                value={difficulty}
                 onChange={(e) => setDifficulty(e.target.value)}
               >
                 <option value="">Any Difficulty</option>
@@ -110,6 +120,7 @@ const Setup = () => {
             <button
               type="button"
               className="p-2 mt-5 text-white bg-indigo-600 w-80 rounded-xl focus:outline-none"
+              onClick={submitTriviaOptions}
             >
               Start Quiz
             </button>

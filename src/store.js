@@ -6,9 +6,7 @@ import { fetchTriviaReducer } from './reducers/triviaReducers';
 
 const middleware = [thunk];
 
-const initialState = {
-  triviaList: [],
-};
+const initialState = {};
 
 const reducer = combineReducers({
   trivia: fetchTriviaReducer,
