@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import './style/main.css';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
-import App from './App';
+import App from './App.jsx';
 import reportWebVitals from './reportWebVitals';
 import store from './store';
 
