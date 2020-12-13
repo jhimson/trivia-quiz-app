@@ -4,6 +4,7 @@ const {
   FETCH_TRIVIA_REQUEST,
   FETCH_TRIVIA_SUCCESS,
   FETCH_TRIVIA_FAIL,
+  FETCH_TRIVIA_RESET,
 } = triviaConstants;
 
 export const fetchTriviaReducer = (
@@ -31,6 +32,11 @@ export const fetchTriviaReducer = (
         error: payload,
       };
 
+    case FETCH_TRIVIA_RESET:
+      return {
+        ...state,
+        triviaList: [],
+      };
     default:
       return state;
   }
