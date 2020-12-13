@@ -1,8 +1,10 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useHistory } from 'react-router-dom';
 import { fetchTrivia } from '../actions/triviaActions';
+import FlashMessage from './FlashMessage';
 
 const Setup = () => {
   const history = useHistory();
@@ -11,11 +13,25 @@ const Setup = () => {
   const [category, setCategory] = useState('');
   const [difficulty, setDifficulty] = useState('');
   const [type, setType] = useState('');
+  const [flashMessage, setFlashMessage] = useState('');
+  const trivia = useSelector((state) => state.trivia);
+  const { triviaList } = trivia;
 
   const submitTriviaOptions = () => {
     dispatch(fetchTrivia({ numQuestions, category, difficulty, type }));
-    history.push('/exam');
   };
+
+  useEffect(() => {
+    if (triviaList.length !== 0) {
+      history.push('/exam');
+    } else {
+      setFlashMessage('NO TRIVIA FOUND!');
+    }
+  }, [history, triviaList]);
+
+  useEffect(() => {
+    setFlashMessage('');
+  }, []);
 
   return (
     <div className="flex items-center justify-center w-screen min-h-screen text-center">
@@ -27,6 +43,7 @@ const Setup = () => {
         </div>
         <div />
         <div className="w-full h-auto pb-10 mt-10 mb-10 text-2xl bg-white card-body rounded-2xl">
+          {flashMessage ? <FlashMessage message={flashMessage} /> : null}
           <div className="flex flex-col items-center justify-center mt-3">
             <div className="p-2 mx-2 mt-5 bg-blue-200 border-2 rounded-2xl">
               <label htmlFor="" className="font-mono text-left text-md">
