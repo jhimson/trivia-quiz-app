@@ -5,6 +5,7 @@ const {
   FETCH_TRIVIA_REQUEST,
   FETCH_TRIVIA_SUCCESS,
   FETCH_TRIVIA_FAIL,
+  FETCH_TRIVIA_RESET,
 } = triviaConstants;
 
 export const fetchTrivia = (options) => async (dispatch) => {
@@ -38,4 +39,8 @@ export const fetchTrivia = (options) => async (dispatch) => {
   } catch (error) {
     dispatch({ type: FETCH_TRIVIA_FAIL, payload: error });
   }
+};
+
+export const resetTrivia = () => async (dispatch) => {
+  dispatch({ type: FETCH_TRIVIA_RESET });
 };
