@@ -1,6 +1,8 @@
 import Axios from 'axios';
 import triviaConstants from '../constants';
 
+import { shuffleArray } from '../utils';
+
 const {
   FETCH_TRIVIA_REQUEST,
   FETCH_TRIVIA_SUCCESS,
@@ -35,8 +37,25 @@ export const fetchTrivia = (options) => async (dispatch) => {
         type !== '' ? `&type=${type}` : ''
       }`
     );
-    dispatch({ type: FETCH_TRIVIA_SUCCESS, payload: data.results });
+
+    const formattedQuestions = data.results.map((question) => ({
+      ...question,
+      answers: shuffleArray([
+        ...question.incorrect_answers,
+        question.correct_answer,
+      ]),
+    }));
+
+    console.log(formattedQuestions);
+
+    dispatch({
+      type: FETCH_TRIVIA_SUCCESS,
+      payload: formattedQuestions,
+    });
+
+    localStorage.setItem('triviaList', JSON.stringify(formattedQuestions));
   } catch (error) {
+    console.log(error);
     dispatch({ type: FETCH_TRIVIA_FAIL, payload: error });
   }
 };

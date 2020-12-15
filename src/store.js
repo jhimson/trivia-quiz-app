@@ -4,9 +4,15 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 
 import { fetchTriviaReducer } from './reducers/triviaReducers';
 
-const middleware = [thunk];
+const triviaListFromStorage = localStorage.getItem('triviaList')
+  ? JSON.parse(localStorage.getItem('triviaList'))
+  : [];
 
-const initialState = {};
+const initialState = {
+  trivia: { triviaList: triviaListFromStorage },
+};
+
+const middleware = [thunk];
 
 const reducer = combineReducers({
   trivia: fetchTriviaReducer,

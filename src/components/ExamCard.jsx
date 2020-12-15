@@ -1,5 +1,6 @@
+/* eslint-disable react/no-danger */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { GrFormNextLink } from 'react-icons/gr';
 import { Link, useHistory } from 'react-router-dom';
@@ -11,17 +12,35 @@ const ExamCard = () => {
   const trivia = useSelector((state) => state.trivia);
   const { triviaList } = trivia;
 
+  // Local state
   const [currentNumber, setCurrentNumber] = useState(0);
+  const [score, setScore] = useState(0);
 
-  const choices = [
-    ...triviaList[currentNumber].incorrect_answers,
-    triviaList[currentNumber].correct_answer,
-  ];
+  const checkAnswer = (userAnswer, correctAnswer) => {
+    let correct = null;
+    if (userAnswer === correctAnswer) {
+      setScore((prevScore) => prevScore + 1);
+      correct = true;
+    } else {
+      correct = false;
+    }
+    // setAnswered(true);
+    console.log(correct ? 'CORRECT' : 'WRONG!');
+    return correct;
+  };
 
-  const shuffled = choices
-    .map((a) => ({ sort: Math.random(), value: a }))
-    .sort((a, b) => a.sort - b.sort)
-    .map((a) => a.value);
+  const nextHandler = () => {
+    setCurrentNumber((prev) => {
+      if (prev !== triviaList.length) {
+        return prev + 1;
+      }
+      return prev;
+    });
+  };
+
+  useEffect(() => {
+    console.log('RENDEEERED!');
+  });
 
   return (
     <div className="flex items-center justify-center w-screen min-h-screen text-center">
@@ -43,7 +62,7 @@ const ExamCard = () => {
         <div />
         <div className="w-full h-auto pb-10 mt-10 mb-10 text-2xl bg-black card-body rounded-2xl">
           <div className="flex items-center justify-between p-2 mt-3 text-white font-Ultra">
-            <h1>Score: 0</h1>
+            <h1>Score: {score}</h1>
             <h1>
               Questions:{' '}
               {currentNumber === triviaList.length
@@ -59,51 +78,34 @@ const ExamCard = () => {
               {triviaList[currentNumber].question}
             </h1>
             <div className="flex flex-col mt-5">
-              {shuffled.map((choice) => (
-                <button
-                  type="button"
-                  className={`px-3 py-2 mt-4 font-bold text-left text-white ${
-                    triviaList[currentNumber].correct_answer === choice
-                      ? 'bg-green-400'
-                      : ' bg-indigo-800'
-                  } rounded-xl`}
-                >
-                  {choice}
-                </button>
+              {triviaList[currentNumber].answers.map((choice) => (
+                <>
+                  <button
+                    key={choice}
+                    type="button"
+                    onClick={() =>
+                      checkAnswer(
+                        choice,
+                        triviaList[currentNumber].correct_answer
+                      )
+                    }
+                    className={`px-3 py-2 mt-4 font-bold text-left text-white bg-${
+                      choice === triviaList[currentNumber].correct_answer
+                        ? 'green'
+                        : 'indigo'
+                    }-600 rounded-xl`}
+                  >
+                    {choice}
+                  </button>
+                </>
               ))}
-
-              {/* <button
-                type="button"
-                className="px-3 py-2 mt-4 font-bold text-left text-white bg-indigo-800 rounded-xl"
-              >
-                Final Fantasy: Reborn
-              </button>
-              <button
-                type="button"
-                className="px-3 py-2 mt-4 font-bold text-left text-white bg-indigo-800 rounded-xl"
-              >
-                Final Fantasy XVI
-              </button>
-              <button
-                type="button"
-                className="px-3 py-2 mt-4 font-bold text-left text-white bg-indigo-800 rounded-xl"
-              >
-                Final Fantasy XIII-3
-              </button> */}
             </div>
             <div className="flex justify-end w-full mt-10 mr-5 justify-items-end">
               {currentNumber + 1 !== triviaList.length ? (
                 <button
                   type="button"
                   className="px-4 text-white bg-gray-300 rounded-lg focus:outline-none"
-                  onClick={() =>
-                    setCurrentNumber((prev) => {
-                      if (prev !== triviaList.length) {
-                        return prev + 1;
-                      }
-                      return prev;
-                    })
-                  }
+                  onClick={nextHandler}
                 >
                   <GrFormNextLink size="2em" />
                 </button>
