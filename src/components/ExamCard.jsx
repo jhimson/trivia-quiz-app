@@ -45,7 +45,7 @@ const ExamCard = () => {
   };
 
   const startButtonHandler = () => {
-    setCurrentNumber(1);
+    setCurrentNumber(0);
     setUserAnswer('');
     setScore(0);
     setIsAnswered(false);
