@@ -139,7 +139,7 @@ const Setup = () => {
             </div>
             <button
               type="button"
-              className="p-2 mt-5 text-white bg-indigo-600 w-80 rounded-xl focus:outline-none"
+              className="p-2 mt-5 text-white bg-indigo-600 w-80 rounded-xl focus:outline-none animate-bounce"
               onClick={submitTriviaOptions}
             >
               Start Quiz
