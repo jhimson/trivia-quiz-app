@@ -2,6 +2,8 @@
 /* eslint-disable react/no-danger */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState, useEffect, useRef } from 'react';
+import decode from 'unescape';
+import ent from 'ent';
 import { useSelector, useDispatch } from 'react-redux';
 import { GrFormNextLink } from 'react-icons/gr';
 import { Link, useHistory } from 'react-router-dom';
@@ -15,7 +17,9 @@ const ExamCard = () => {
 
   // Local state
   const [currentNumber, setCurrentNumber] = useState(0);
-  const [score, setScore] = useState(0);
+  const [score, setScore] = useState(
+    JSON.parse(localStorage.getItem('score')) || 0
+  );
   const [isAnswered, setIsAnswered] = useState(false);
   const [userAnswer, setUserAnswer] = useState('');
 
@@ -62,9 +66,6 @@ const ExamCard = () => {
           </button>
         </div>
         <div />
-        {/* <div className="w-full h-auto pb-10 text-2xl bg-black card-body rounded-2xl">
-          
-        </div> */}
         <div className="w-full h-auto pb-10 text-lg bg-black card-body rounded-2xl">
           <div className="flex items-center justify-between p-4 text-white font-Ultra">
             <h1>Score: {`${score}/${triviaList.length}`}</h1>
@@ -78,7 +79,7 @@ const ExamCard = () => {
           </div>
           <div className="flex flex-col items-center justify-center p-2 font-bold">
             <h1 className="p-3 text-white">
-              {triviaList[currentNumber].question}
+              {ent.decode(triviaList[currentNumber].question)}
             </h1>
             <div className="flex flex-col mt-1">
               {triviaList[currentNumber].answers.map((choice) => (
@@ -114,7 +115,7 @@ const ExamCard = () => {
                     }-600 rounded-xl`}
                     disabled={isAnswered ? 'disabled' : null}
                   >
-                    {choice}
+                    {ent.decode(choice)}
                   </button>
                 </>
               ))}
