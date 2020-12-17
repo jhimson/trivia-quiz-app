@@ -32,6 +32,8 @@ const Setup = () => {
   useEffect(() => {
     setFlashMessage('');
     localStorage.setItem('triviaList', JSON.stringify([]));
+    localStorage.setItem('score', JSON.stringify(0));
+    localStorage.setItem('currentNumber', JSON.stringify(0));
   }, []);
 
   return (

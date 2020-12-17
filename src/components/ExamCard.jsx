@@ -2,7 +2,6 @@
 /* eslint-disable react/no-danger */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState, useEffect, useRef } from 'react';
-import decode from 'unescape';
 import ent from 'ent';
 import { useSelector, useDispatch } from 'react-redux';
 import { GrFormNextLink } from 'react-icons/gr';
@@ -16,7 +15,9 @@ const ExamCard = () => {
   const { triviaList } = trivia;
 
   // Local state
-  const [currentNumber, setCurrentNumber] = useState(0);
+  const [currentNumber, setCurrentNumber] = useState(
+    JSON.parse(localStorage.getItem('currentNumber')) || 0
+  );
   const [score, setScore] = useState(
     JSON.parse(localStorage.getItem('score')) || 0
   );
@@ -26,6 +27,7 @@ const ExamCard = () => {
   const checkAnswer = (Answer, correctAnswer) => {
     setUserAnswer(Answer);
     if (Answer === correctAnswer) {
+      localStorage.setItem('score', JSON.stringify(score + 1));
       setScore((prevScore) => prevScore + 1);
     }
     setIsAnswered(true);
@@ -33,6 +35,7 @@ const ExamCard = () => {
 
   const nextHandler = () => {
     setIsAnswered(false);
+    localStorage.setItem('currentNumber', JSON.stringify(currentNumber + 1));
     setCurrentNumber((prev) => {
       if (prev !== triviaList.length) {
         return prev + 1;
@@ -42,7 +45,7 @@ const ExamCard = () => {
   };
 
   const startButtonHandler = () => {
-    setCurrentNumber(0);
+    setCurrentNumber(1);
     setUserAnswer('');
     setScore(0);
     setIsAnswered(false);
@@ -137,7 +140,7 @@ const ExamCard = () => {
                     className="px-3 py-2 text-lg font-bold text-black bg-yellow-200 rounded-xl animate-bounce"
                     onClick={startButtonHandler}
                   >
-                    Start Again
+                    Retake the quiz...
                   </button>
                 </>
               ) : null}
