@@ -63,7 +63,7 @@ const ExamCard = () => {
               history.push('/');
             }}
           >
-            <h1 className="px-20 py-2 text-2xl text-white bg-indigo-800 rounded-full md:px-64 lg:px-32 xl:px-80 font-Ultra opacity-90">
+            <h1 className="px-16 py-2 text-2xl text-white bg-indigo-800 rounded-full md:px-64 lg:px-32 xl:px-80 font-Ultra opacity-90">
               Trivia Quiz
             </h1>
           </button>
