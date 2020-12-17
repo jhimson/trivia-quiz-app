@@ -45,7 +45,7 @@ const Setup = () => {
           </h1>
         </div>
         <div />
-        <div className="w-full h-auto px-2 pb-10 mt-10 mb-10 text-2xl bg-black card-body rounded-2xl">
+        <div className="w-full h-auto pb-10 mt-10 mb-10 text-2xl bg-black card-body rounded-2xl">
           {flashMessage ? <FlashMessage message={flashMessage} /> : null}
           <div className="flex flex-col items-center justify-center mt-3">
             <div className="p-2 mx-2 mt-5 bg-blue-400 border-2 rounded-2xl">

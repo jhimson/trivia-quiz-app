@@ -140,7 +140,7 @@ const ExamCard = () => {
                     className="px-3 py-2 text-lg font-bold text-black bg-yellow-200 rounded-xl animate-bounce"
                     onClick={startButtonHandler}
                   >
-                    Retake the quiz...
+                    Retake Quiz...
                   </button>
                 </>
               ) : null}
