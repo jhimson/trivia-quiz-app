@@ -12,7 +12,6 @@ const {
 
 export const fetchTrivia = (options) => async (dispatch) => {
   const { category, numQuestions, difficulty, type } = options;
-  console.log(options);
   const config = {
     headers: {
       'Content-Type': 'application/json',
@@ -30,13 +29,6 @@ export const fetchTrivia = (options) => async (dispatch) => {
       }`,
       config
     );
-    console.log(
-      `https://opentdb.com/api.php?amount=${numQuestions}${
-        category !== '' ? `&category=${category}` : ''
-      }${difficulty !== '' ? `&difficulty=${difficulty}` : ''}${
-        type !== '' ? `&type=${type}` : ''
-      }`
-    );
 
     const formattedQuestions = data.results.map((question) => ({
       ...question,
@@ -46,8 +38,6 @@ export const fetchTrivia = (options) => async (dispatch) => {
       ]),
     }));
 
-    console.log(formattedQuestions);
-
     dispatch({
       type: FETCH_TRIVIA_SUCCESS,
       payload: formattedQuestions,
@@ -55,7 +45,6 @@ export const fetchTrivia = (options) => async (dispatch) => {
 
     localStorage.setItem('triviaList', JSON.stringify(formattedQuestions));
   } catch (error) {
-    console.log(error);
     dispatch({ type: FETCH_TRIVIA_FAIL, payload: error });
   }
 };

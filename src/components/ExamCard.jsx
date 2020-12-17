@@ -1,7 +1,7 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable react/no-danger */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import ent from 'ent';
 import { useSelector, useDispatch } from 'react-redux';
 import { GrFormNextLink } from 'react-icons/gr';
@@ -54,7 +54,7 @@ const ExamCard = () => {
   return (
     <div className="flex items-center justify-center w-screen min-h-screen text-center">
       <div className="w-full h-screen p-5 bg-transparent lg:w-1/2 lg:h-72 card lg:rounded-3xl">
-        <div className="card-header">
+        <div className="mb-2 bg-black rounded-full card-header">
           <button
             type="button"
             className="p-5"
@@ -63,14 +63,14 @@ const ExamCard = () => {
               history.push('/');
             }}
           >
-            <h1 className="px-5 py-2 text-2xl text-white bg-indigo-800 rounded-full font-Ultra opacity-90">
+            <h1 className="px-20 py-2 text-2xl text-white bg-indigo-800 rounded-full md:px-64 lg:px-32 xl:px-80 font-Ultra opacity-90">
               Trivia Quiz
             </h1>
           </button>
         </div>
         <div />
         <div className="w-full h-auto pb-10 text-lg bg-black card-body rounded-2xl">
-          <div className="flex items-center justify-between p-4 text-white font-Ultra">
+          <div className="flex items-center justify-between p-4 text-xl text-white font-Ultra">
             <h1>Score: {`${score}/${triviaList.length}`}</h1>
             <h1>
               Questions:{' '}
@@ -80,7 +80,7 @@ const ExamCard = () => {
               /{triviaList.length}
             </h1>
           </div>
-          <div className="flex flex-col items-center justify-center p-2 font-bold">
+          <div className="flex flex-col items-center justify-center p-2 font-bold md:text-2xl">
             <h1 className="p-3 text-white">
               {ent.decode(triviaList[currentNumber].question)}
             </h1>
@@ -96,7 +96,7 @@ const ExamCard = () => {
                         triviaList[currentNumber].correct_answer
                       )
                     }
-                    className={`px-3 py-2 mt-4 font-bold  text-white text-sm w-72 text-center bg-${
+                    className={`px-3 py-2 mt-4 font-bold  text-white text-sm md:text-2xl md:w-full w-72 text-center bg-${
                       isAnswered &&
                       userAnswer === triviaList[currentNumber].correct_answer &&
                       userAnswer === choice

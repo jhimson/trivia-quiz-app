@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { fetchTrivia } from '../actions/triviaActions';
 import FlashMessage from './FlashMessage';
 
@@ -45,11 +45,14 @@ const Setup = () => {
           </h1>
         </div>
         <div />
-        <div className="w-full h-auto pb-10 mt-10 mb-10 text-2xl bg-black card-body rounded-2xl">
+        <div className="w-full h-auto pb-10 mt-10 mb-10 text-2xl bg-black card-body rounded-2xl md:p-5">
           {flashMessage ? <FlashMessage message={flashMessage} /> : null}
           <div className="flex flex-col items-center justify-center mt-3">
-            <div className="p-2 mx-2 mt-5 bg-blue-400 border-2 rounded-2xl">
-              <label htmlFor="" className="font-mono text-left text-md">
+            <div className="items-baseline justify-between p-2 mx-2 mt-5 bg-blue-400 border-2 md:flex md:w-full rounded-2xl">
+              <label
+                htmlFor=""
+                className="font-mono text-left md:font-Ultra text-md"
+              >
                 Number of Questions:{' '}
               </label>
               <select
@@ -64,8 +67,8 @@ const Setup = () => {
                 <option value={30}>30</option>
               </select>
             </div>
-            <div className="p-2 mx-2 mt-5 bg-blue-400 border-2 rounded-2xl">
-              <label htmlFor="" className="font-mono text-md">
+            <div className="items-baseline justify-between p-2 mx-2 mt-5 bg-blue-400 border-2 md:flex md:w-full rounded-2xl">
+              <label htmlFor="" className="font-mono md:font-Ultra text-md">
                 Select Category:{' '}
               </label>
               <select
@@ -104,8 +107,8 @@ const Setup = () => {
                 <option value={32}>Entertainment: Cartoon & Animations</option>
               </select>
             </div>
-            <div className="p-2 mx-2 mt-5 bg-blue-400 border-2 rounded-2xl">
-              <label htmlFor="" className="font-mono text-md">
+            <div className="items-baseline justify-between p-2 mx-2 mt-5 bg-blue-400 border-2 md:flex md:w-full rounded-2xl">
+              <label htmlFor="" className="font-mono text-md md:font-Ultra">
                 Select Difficulty:{' '}
               </label>
               <select
@@ -121,8 +124,8 @@ const Setup = () => {
                 <option value="hard">Hard</option>
               </select>
             </div>
-            <div className="p-2 mx-2 mt-5 bg-blue-400 border-2 rounded-2xl">
-              <label htmlFor="" className="font-mono text-md">
+            <div className="items-baseline justify-between p-2 mx-2 mt-5 text-center bg-blue-400 border-2 md:flex md:w-full rounded-2xl">
+              <label htmlFor="" className="font-mono text-md md:font-Ultra">
                 Select Type:{' '}
               </label>
               <select
@@ -139,7 +142,7 @@ const Setup = () => {
             </div>
             <button
               type="button"
-              className="p-2 mt-5 text-white bg-indigo-600 w-80 rounded-xl focus:outline-none animate-bounce"
+              className="p-2 mt-5 text-white bg-indigo-600 w-80 md:w-full rounded-xl focus:outline-none animate-bounce"
               onClick={submitTriviaOptions}
             >
               Start Quiz
