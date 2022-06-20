@@ -1,6 +1,6 @@
-Trivia Quiz App
+#Trivia Quiz App
 
-Built with:
+###Technologies Used:
 
 - ReactJS
 - Redux
