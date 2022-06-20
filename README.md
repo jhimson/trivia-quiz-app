@@ -1,8 +1,9 @@
-#Trivia Quiz App
+# Trivia Quiz App
 
-###Technologies Used:
-
+### Technologies Used:
+- HTML
+- CSS
+- TailwindCSS
 - ReactJS
 - Redux
-- TailwindCSS
 - Open Trivia DB API
